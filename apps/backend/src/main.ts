@@ -33,12 +33,12 @@ async function startServer() {
     },
   });
 
-  console.log(`🚀 Server ready at ${url}`);
-  console.log(`📊 GraphQL endpoint: ${url}graphql`);
+  console.log(`Server ready at ${url}`);
+  console.log(`GraphQL endpoint: ${url}graphql`);
 }
 
 // Start the server
 startServer().catch(error => {
-  console.error('❌ Failed to start server:', error);
+  console.error('Failed to start server:', error);
   process.exit(1);
 });
