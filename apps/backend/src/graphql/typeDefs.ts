@@ -1,24 +1,8 @@
-export const typeDefs = `#graphql
-  type User {
-    id: ID!
-    username: String!
-    createdAt: String!
-    updatedAt: String!
-  }
+import { mergeTypeDefs } from '@graphql-tools/merge';
+import { baseTypeDefs } from './base/baseTypeDefs';
+import { userTypeDefs } from './user/userTypeDefs';
+import { bookTypeDefs } from './book/bookTypeDefs';
 
-  type AuthPayload {
-    token: String!
-    user: User!
-  }
+const typeDefs = mergeTypeDefs([baseTypeDefs, userTypeDefs, bookTypeDefs]);
 
-  type Query {
-    me: User
-    users: [User!]!
-  }
-
-  type Mutation {
-    register(username: String!, password: String!): AuthPayload!
-    login(username: String!, password: String!): AuthPayload!
-    logout: String!
-  }
-`;
+export default typeDefs;

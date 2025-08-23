@@ -2,8 +2,9 @@ import dotenv from 'dotenv';
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
 import { connectDatabase } from './configs/database';
-import { typeDefs } from './graphql/typeDefs';
-import { resolvers, Context } from './graphql/resolvers';
+import typeDefs from './graphql/typeDefs';
+import resolvers from './graphql/resolvers';
+import { Context } from './graphql/user/userResolvers';
 
 // Load environment variables
 dotenv.config();

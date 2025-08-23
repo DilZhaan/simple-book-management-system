@@ -99,6 +99,7 @@
   },
   "dependencies": {
     "@apollo/server": "^5.0.0",
+    "@graphql-tools/merge": "^9.1.1",
     "@types/bcryptjs": "^2.4.6",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/mongoose": "^5.11.96",
