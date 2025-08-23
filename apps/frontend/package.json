@@ -1,0 +1,29 @@
+{
+  "name": "@simple-book-management-system/frontend",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "next": "~15.2.4",
+    "react": "19.0.0",
+    "react-dom": "19.0.0"
+  },
+  "nx": {
+    "targets": {
+      "build": {
+        "executor": "@nx/next:build",
+        "outputs": ["{options.outputPath}"],
+        "options": {
+          "root": "apps/frontend",
+          "outputPath": "dist/apps/frontend"
+        }
+      },
+      "serve": {
+        "executor": "@nx/next:server",
+        "options": {
+          "buildTarget": "@simple-book-management-system/frontend:build",
+          "dev": true
+        }
+      }
+    }
+  }
+}

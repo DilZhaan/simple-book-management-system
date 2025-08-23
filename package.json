@@ -1,0 +1,37 @@
+{
+  "name": "@simple-book-management-system/source",
+  "version": "0.0.0",
+  "license": "MIT",
+  "scripts": {},
+  "private": true,
+  "devDependencies": {
+    "@nx/esbuild": "21.4.1",
+    "@nx/js": "21.4.1",
+    "@nx/next": "^21.4.1",
+    "@nx/node": "^21.4.1",
+    "@swc-node/register": "~1.9.1",
+    "@swc/cli": "~0.6.0",
+    "@swc/core": "~1.5.7",
+    "@swc/helpers": "~0.5.11",
+    "@types/express": "^4.17.21",
+    "@types/node": "20.19.9",
+    "@types/react": "19.0.0",
+    "@types/react-dom": "19.0.0",
+    "esbuild": "^0.19.2",
+    "nx": "21.4.1",
+    "prettier": "^2.6.2",
+    "tslib": "^2.3.0",
+    "typescript": "~5.8.2"
+  },
+  "workspaces": [
+    "packages/*",
+    "apps/*",
+    "apps"
+  ],
+  "dependencies": {
+    "express": "^4.21.2",
+    "next": "~15.2.4",
+    "react": "19.0.0",
+    "react-dom": "19.0.0"
+  }
+}
