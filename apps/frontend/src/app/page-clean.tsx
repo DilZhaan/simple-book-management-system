@@ -16,11 +16,21 @@ import {
 } from '@mui/icons-material';
 import { useRouter } from 'next/navigation';
 import TypingAnimation from './_components/TypingAnimation';
-import './assets/homepage.css';
+import './homepage.css';
 
 export default function HomePage() {
   const router = useRouter();
   const containerRef = useRef<HTMLDivElement>(null);
+
+  // Floating particles data
+  const particles = Array.from({ length: 30 }, (_, i) => ({
+    id: i,
+    size: Math.random() * 4 + 2,
+    left: Math.random() * 100,
+    top: Math.random() * 100,
+    opacity: Math.random() * 0.5 + 0.2,
+    delay: Math.random() * 5
+  }));
 
   return (
     <Box
@@ -30,6 +40,24 @@ export default function HomePage() {
       {/* Animated background elements */}
       <Box className="homepage-bg-effect-1" />
       <Box className="homepage-bg-effect-2" />
+
+      {/* Floating particles */}
+      <Box className="homepage-particles">
+        {particles.map((particle) => (
+          <Box
+            key={particle.id}
+            className="homepage-particle"
+            style={{
+              width: `${particle.size}px`,
+              height: `${particle.size}px`,
+              left: `${particle.left}%`,
+              top: `${particle.top}%`,
+              opacity: particle.opacity,
+              animationDelay: `${particle.delay}s`
+            }}
+          />
+        ))}
+      </Box>
 
       <Container maxWidth="lg" className="homepage-container">
         <Box
@@ -59,25 +87,19 @@ export default function HomePage() {
             {/* Feature Chips */}
             <Stack className="homepage-chips">
               <Chip 
-                label="Search Books" 
+                label="Organize Books" 
                 variant="outlined" 
                 color="primary"
                 className="homepage-chip primary"
               />
               <Chip 
-                label="Add New Books" 
+                label="Track Reading" 
                 variant="outlined" 
                 color="secondary"
                 className="homepage-chip secondary"
               />
               <Chip 
-                label="Update New Books" 
-                variant="outlined" 
-                color="primary"
-                className="homepage-chip primary"
-              />
-              <Chip 
-                label="Remove Book(s)" 
+                label="Discover New Books" 
                 variant="outlined" 
                 color="primary"
                 className="homepage-chip primary"
