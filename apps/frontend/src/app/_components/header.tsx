@@ -13,14 +13,15 @@ export default function Header() {
   const router = useRouter();
 
   const tabs = React.useMemo(() => {
-    //I used Tabs array cuz when using tabs directly, we can use signIn n signup btns 
+    
+    
     const baseTabs = [
-      { label: 'Home', path: '/' },
-      { label: 'Books', path: '/books' }
+      { label: 'Home', path: '/' }
     ];
 
     if (isSignedIn) {
-      baseTabs.push({ 
+      baseTabs.push(
+      { label: 'Books', path: '/books' }, { 
         label: `Logout (${user?.username || 'User'})`, 
         path: 'logout' 
       });

@@ -36,12 +36,14 @@ export default function AuthForm({
   const [error, setError] = React.useState('');
   const [loading, setLoading] = React.useState(false);
 
+  const GRAPHQL_URL = process.env.GRAPHQL_URL || 'http://localhost:3000/graphql';
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError('');
 
-    // Frontend password confirmation validation for signup
+    
     if (type === 'signup' && password !== confirmPassword) {
       setError('Passwords do not match');
       setLoading(false);
@@ -73,7 +75,7 @@ export default function AuthForm({
           }
         `;
 
-      const response = await fetch('http://localhost:3000/graphql', {
+      const response = await fetch(GRAPHQL_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

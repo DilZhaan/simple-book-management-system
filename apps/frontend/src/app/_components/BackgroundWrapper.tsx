@@ -8,7 +8,8 @@ interface BackgroundWrapperProps {
 }
 
 const BackgroundWrapper: React.FC<BackgroundWrapperProps> = ({ children, className = 'page-wrapper' }) => {
-  // Floating particles data
+
+  
   const particles = Array.from({ length: 20 }, (_, i) => ({
     id: i,
     size: Math.random() * 3 + 1,
@@ -42,12 +43,13 @@ const BackgroundWrapper: React.FC<BackgroundWrapperProps> = ({ children, classNa
         ))}
       </Box>
 
-      {/* Content */}
+     
+     
       <Box className={`page-content ${className}`}>
         {children}
       </Box>
 
-      {/* Bottom Divider */}
+
       <Box className="page-bottom-divider" />
     </Box>
   );

@@ -140,40 +140,6 @@
     0 4px 12px rgba(76, 175, 80, 0.2) !important;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .header-container {
-    backdrop-filter: blur(15px) !important;
-  }
-  
-  .header-tab {
-    padding: 10px 16px !important;
-    margin: 0 2px !important;
-    font-size: 0.9rem !important;
-    min-height: 44px !important;
-  }
-  
-  .header-tabs {
-    min-height: 56px !important;
-    padding: 6px 0 !important;
-  }
-}
-
-@media (max-width: 480px) {
-  .header-tab {
-    padding: 8px 12px !important;
-    margin: 0 1px !important;
-    font-size: 0.85rem !important;
-    min-height: 40px !important;
-    border-radius: 8px !important;
-  }
-  
-  .header-tabs {
-    min-height: 52px !important;
-    padding: 4px 0 !important;
-  }
-}
-
 /* Animation for tab changes */
 @keyframes tabGlow {
   0% {
@@ -221,11 +187,4 @@
   justify-content: center !important;
   gap: 8px !important;
   padding: 0 16px !important;
-}
-
-@media (max-width: 768px) {
-  .header-tabs .MuiTabs-flexContainer {
-    gap: 4px !important;
-    padding: 0 8px !important;
-  }
 }
