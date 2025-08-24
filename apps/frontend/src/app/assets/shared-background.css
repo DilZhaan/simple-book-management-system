@@ -1,0 +1,138 @@
+/* Shared Background Styles for All Pages */
+.page-background {
+  position: relative;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1976d2 0%, #121212 100%);
+  overflow-x: hidden;
+}
+
+.page-background::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(25, 118, 210, 0.1) 0%, transparent 70%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Background Effects */
+.page-bg-effect-1 {
+  position: fixed;
+  width: 50vw;
+  height: 50vw;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(25, 118, 210, 0.3) 0%, transparent 70%);
+  filter: blur(100px);
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  animation: pulse 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.page-bg-effect-2 {
+  position: fixed;
+  width: 40vw;
+  height: 40vw;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(156, 39, 176, 0.2) 0%, transparent 70%);
+  filter: blur(80px);
+  right: 10%;
+  bottom: 10%;
+  z-index: 1;
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.6; }
+}
+
+/* Floating Particles */
+.page-particles {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.page-particle {
+  position: absolute;
+  border-radius: 50%;
+  background-color: #1976d2;
+  animation: floatParticle 8s ease-in-out infinite;
+}
+
+@keyframes floatParticle {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+/* Content wrapper to ensure content is above background */
+.page-content {
+  position: relative;
+  z-index: 2;
+}
+
+/* Bottom Divider */
+.page-bottom-divider {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(25, 118, 210, 0.6), transparent);
+  z-index: 10;
+}
+
+/* Layout specific styles */
+.page-wrapper {
+  min-height: 100vh;
+}
+
+/* Header positioning */
+.page-wrapper header {
+  position: relative;
+  z-index: 3;
+}
+
+/* Main content positioning */
+.page-wrapper main {
+  position: relative;
+  z-index: 2;
+}
+
+/* Override for dark backgrounds - ensure text is visible */
+.page-background .MuiTypography-root {
+  position: relative;
+  z-index: 3;
+}
+
+.page-background .MuiCard-root {
+  position: relative;
+  z-index: 3;
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.page-background .MuiPaper-root {
+  position: relative;
+  z-index: 3;
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.95);
+}
+
+/* Auth pages specific styling */
+.auth-container {
+  min-height: calc(100vh - 80px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}

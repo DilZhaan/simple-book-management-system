@@ -1,0 +1,59 @@
+/* TypingAnimation Component Styles */
+.typing-animation-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.typing-animation-text {
+  font-weight: 500;
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  font-size: 2.2rem;
+  font-family: 'Inter', 'Segoe UI', 'Roboto', sans-serif;
+  text-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.6),
+    0 4px 8px rgba(0, 0, 0, 0.3);
+  letter-spacing: -0.01em;
+}
+
+@media (max-width: 1200px) {
+  .typing-animation-text {
+    font-size: 1.9rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .typing-animation-text {
+    font-size: 1.4rem;
+  }
+}
+
+.typing-animation-cursor {
+  display: inline-block;
+  width: 3px;
+  height: 2.2rem;
+  background: linear-gradient(180deg, #ffffff 0%, rgba(255, 255, 255, 0.8) 100%);
+  margin-left: 8px;
+  animation: blink 1s infinite;
+  border-radius: 2px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 1200px) {
+  .typing-animation-cursor {
+    height: 1.9rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .typing-animation-cursor {
+    height: 1.4rem;
+  }
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0.3; }
+}

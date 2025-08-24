@@ -1,0 +1,56 @@
+'use client';
+import React from 'react';
+import { Box } from '@mui/material';
+
+interface BackgroundWrapperProps {
+  children: React.ReactNode;
+  className?: string;
+}
+
+const BackgroundWrapper: React.FC<BackgroundWrapperProps> = ({ children, className = 'page-wrapper' }) => {
+  // Floating particles data
+  const particles = Array.from({ length: 20 }, (_, i) => ({
+    id: i,
+    size: Math.random() * 3 + 1,
+    left: Math.random() * 100,
+    top: Math.random() * 100,
+    opacity: Math.random() * 0.4 + 0.1,
+    delay: Math.random() * 5
+  }));
+
+  return (
+    <Box className="page-background">
+      {/* Background Effects */}
+      <Box className="page-bg-effect-1" />
+      <Box className="page-bg-effect-2" />
+
+      {/* Floating Particles */}
+      <Box className="page-particles">
+        {particles.map((particle) => (
+          <Box
+            key={particle.id}
+            className="page-particle"
+            style={{
+              width: `${particle.size}px`,
+              height: `${particle.size}px`,
+              left: `${particle.left}%`,
+              top: `${particle.top}%`,
+              opacity: particle.opacity,
+              animationDelay: `${particle.delay}s`
+            }}
+          />
+        ))}
+      </Box>
+
+      {/* Content */}
+      <Box className={`page-content ${className}`}>
+        {children}
+      </Box>
+
+      {/* Bottom Divider */}
+      <Box className="page-bottom-divider" />
+    </Box>
+  );
+};
+
+export default BackgroundWrapper;

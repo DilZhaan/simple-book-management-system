@@ -5,6 +5,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '../_context/AuthContext';
+import '../assets/header.css';
 
 export default function Header() {
   const [value, setValue] = React.useState(0);
@@ -52,11 +53,30 @@ export default function Header() {
   };
 
   return (
-    <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
-      <Tabs value={value} onChange={handleTabClick} centered>
-        {tabs.map((tab, index) => (
-          <Tab key={index} label={tab.label} />
-        ))}
+    <Box 
+      sx={{ width: '100%', bgcolor: 'background.paper' }}
+      className="header-container"
+    >
+      <Tabs 
+        value={value} 
+        onChange={handleTabClick} 
+        centered
+        className="header-tabs"
+      >
+        {tabs.map((tab, index) => {
+          const isLogout = tab.path === 'logout';
+          const isAuth = tab.path === '/auth/signin' || tab.path === '/auth/signup';
+          
+          return (
+            <Tab 
+              key={index} 
+              label={tab.label}
+              className="header-tab"
+              data-logout={isLogout}
+              data-auth={isAuth}
+            />
+          );
+        })}
       </Tabs>
     </Box>
   );

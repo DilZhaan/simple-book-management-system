@@ -1,6 +1,8 @@
-import './global.css';
+import './assets/global.css';
+import './assets/shared-background.css';
 import { AuthProvider } from './_context/AuthContext';
 import Header from './_components/header';
+import BackgroundWrapper from './_components/BackgroundWrapper';
 
 export const metadata = {
   title: 'Simple Book Management System',
@@ -16,8 +18,10 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <AuthProvider>
-          <Header />
-          <main>{children}</main>
+          <BackgroundWrapper className="page-wrapper">
+            <Header />
+            <main>{children}</main>
+          </BackgroundWrapper>
         </AuthProvider>
       </body>
     </html>

@@ -1,7 +1,7 @@
 'use client';
 import * as React from 'react';
 import AuthForm from '../../_components/AuthForm';
-import '../auth.css';
+import '../../assets/auth.css';
 
 export default function SignUpPage() {
   return (
