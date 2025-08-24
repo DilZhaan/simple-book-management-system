@@ -1,3 +1,5 @@
+//add validation from ai
+
 import mongoose, { Document, Schema } from 'mongoose';
 
 export interface IBook extends Document {
