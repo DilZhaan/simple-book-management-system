@@ -22,6 +22,7 @@ export default function HomePage() {
   const router = useRouter();
   const containerRef = useRef<HTMLDivElement>(null);
 
+  //i use my portfolio website as a ref to create this home page
   return (
     <Box
       component="section"
