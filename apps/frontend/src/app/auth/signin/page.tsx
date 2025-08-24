@@ -1,182 +1,133 @@
+'use client';
 import * as React from 'react';
 import {
-  Button,
-  FormControl,
-  Checkbox,
-  FormControlLabel,
-  InputLabel,
-  OutlinedInput,
+  Box,
+  Card,
+  CardContent,
+  Typography,
   TextField,
-  InputAdornment,
-  Link,
-  Alert,
-  IconButton,
+  Button,
+  Container,
+  Alert
 } from '@mui/material';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import { AppProvider } from '@toolpad/core/AppProvider';
-import { SignInPage } from '@toolpad/core/SignInPage';
-import { useTheme } from '@mui/material/styles';
+import { useAuth } from '../../_context/AuthContext';
+import { useRouter } from 'next/navigation';
+import '../auth.css';
 
-const providers = [{ id: 'credentials', name: 'Email and Password' }];
+export default function SignInPage() {
+  const { login } = useAuth();
+  const router = useRouter();
+  const [username, setUsername] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const [error, setError] = React.useState('');
+  const [loading, setLoading] = React.useState(false);
 
-function CustomEmailField() {
-  return (
-    <TextField
-      id="input-with-icon-textfield"
-      label="Email"
-      name="email"
-      type="email"
-      size="small"
-      required
-      fullWidth
-      slotProps={{
-        input: {
-          startAdornment: (
-            <InputAdornment position="start">
-              <AccountCircle fontSize="inherit" />
-            </InputAdornment>
-          ),
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+
+    try {
+      const response = await fetch('http://localhost:3000/graphql', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
-      }}
-      variant="outlined"
-    />
-  );
-}
+        body: JSON.stringify({
+          query: `
+            mutation Login($username: String!, $password: String!) {
+              login(username: $username, password: $password) {
+                token
+                user {
+                  id
+                  username
+                }
+              }
+            }
+          `,
+          variables: {
+            username,
+            password
+          }
+        })
+      });
 
-function CustomPasswordField() {
-  const [showPassword, setShowPassword] = React.useState(false);
-
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
-
-  const handleMouseDownPassword = (event: React.MouseEvent) => {
-    event.preventDefault();
+      const data = await response.json();
+      
+      if (data.errors) {
+        setError(data.errors[0].message);
+      } else {
+        const { token, user } = data.data.login;
+        login(token, user);
+        router.push('/');
+      }
+    } catch (err) {
+      setError('Failed to sign in. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <FormControl sx={{ my: 2 }} fullWidth variant="outlined">
-      <InputLabel size="small" htmlFor="outlined-adornment-password">
-        Password
-      </InputLabel>
-      <OutlinedInput
-        id="outlined-adornment-password"
-        type={showPassword ? 'text' : 'password'}
-        name="password"
-        size="small"
-        endAdornment={
-          <InputAdornment position="end">
-            <IconButton
-              aria-label="toggle password visibility"
-              onClick={handleClickShowPassword}
-              onMouseDown={handleMouseDownPassword}
-              edge="end"
-              size="small"
-            >
-              {showPassword ? (
-                <VisibilityOff fontSize="inherit" />
-              ) : (
-                <Visibility fontSize="inherit" />
-              )}
-            </IconButton>
-          </InputAdornment>
-        }
-        label="Password"
-      />
-    </FormControl>
+    <Container component="main" maxWidth="sm">
+      <Box className="auth-container">
+        <Card className="auth-card">
+          <CardContent className="auth-card-content">
+            <Typography component="h1" variant="h4" className="auth-title">
+              Sign In
+            </Typography>
+            <Typography variant="body2" className="auth-subtitle">
+              Welcome back
+            </Typography>
+            
+            {error && (
+              <Alert severity="error" className="auth-error">
+                {error}
+              </Alert>
+            )}
+
+            <Box component="form" onSubmit={handleSubmit} className="auth-form">
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="username"
+                label="Username"
+                name="username"
+                autoComplete="username"
+                autoFocus
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                className="auth-textfield"
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="auth-textfield"
+              />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                disabled={loading}
+                className="auth-submit-button"
+              >
+                {loading ? 'Signing In...' : 'Sign In'}
+              </Button>
+            </Box>
+          </CardContent>
+        </Card>
+      </Box>
+    </Container>
   );
 }
 
-function CustomButton() {
-  return (
-    <Button
-      type="submit"
-      variant="outlined"
-      color="info"
-      size="small"
-      disableElevation
-      fullWidth
-      sx={{ my: 2 }}
-    >
-      Log In
-    </Button>
-  );
-}
 
-function SignUpLink() {
-  return (
-    <Link href="/" variant="body2">
-      Sign up
-    </Link>
-  );
-}
-
-function ForgotPasswordLink() {
-  return (
-    <Link href="/" variant="body2">
-      Forgot password?
-    </Link>
-  );
-}
-
-function Title() {
-  return <h2 style={{ marginBottom: 8 }}>Login</h2>;
-}
-
-function Subtitle() {
-  return (
-    <Alert sx={{ mb: 2, px: 1, py: 0.25, width: '100%' }} severity="warning">
-      We are investigating an ongoing outage.
-    </Alert>
-  );
-}
-
-function RememberMeCheckbox() {
-  const theme = useTheme();
-  return (
-    <FormControlLabel
-      label="Remember me"
-      control={
-        <Checkbox
-          name="remember"
-          value="true"
-          color="primary"
-          sx={{ padding: 0.5, '& .MuiSvgIcon-root': { fontSize: 20 } }}
-        />
-      }
-      slotProps={{
-        typography: {
-          color: 'textSecondary',
-          fontSize: theme.typography.pxToRem(14),
-        },
-      }}
-    />
-  );
-}
-
-export default function SlotsSignIn() {
-  const theme = useTheme();
-  return (
-    <AppProvider theme={theme}>
-      <SignInPage
-        signIn={(provider, formData) =>
-          alert(
-            `Logging in with "${provider.name}" and credentials: ${formData.get('email')}, ${formData.get('password')}, and checkbox value: ${formData.get('remember')}`,
-          )
-        }
-        slots={{
-          title: Title,
-          subtitle: Subtitle,
-          emailField: CustomEmailField,
-          passwordField: CustomPasswordField,
-          submitButton: CustomButton,
-          signUpLink: SignUpLink,
-          rememberMe: RememberMeCheckbox,
-          forgotPasswordLink: ForgotPasswordLink,
-        }}
-        slotProps={{ form: { noValidate: true } }}
-        providers={providers}
-      />
-    </AppProvider>
-  );
-}
